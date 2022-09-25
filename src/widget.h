@@ -32,7 +32,10 @@ private:
 private:
     std::vector<QGroupBox *> group_box;
     std::vector<QLineSeries *> series;
+    std::vector<QPointF> vtPointF;
+    std::vector<QPointF> vtSSPointF;
     std::vector<QScatterSeries *> scatterSeries;
+    std::vector<int> vf;
     int maxX = 0;
     int maxY = 0;
 
@@ -42,8 +45,6 @@ public:
 
 private slots:
     void on_pushButton_clicked();
-
-    void on_pushButton_2_clicked();
 
     void on_btnOK_clicked();
 
