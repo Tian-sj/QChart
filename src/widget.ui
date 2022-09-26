@@ -50,6 +50,24 @@ QPushButton:!enabled{
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
+      <property name="styleSheet">
+       <string notr="true">QRadioButton{
+        spacing: 5px;
+}
+QRadioButton:enabled{
+	color: rgb(0, 0, 0);
+}
+QRadioButton:enabled:hover{
+        color: rgb(200, 200, 200);
+}
+QRadioButton:!enabled{
+        color: rgb(155, 155, 155);
+}
+QRadioButton::indicator {
+        width: 20px;
+        height: 20px;
+}</string>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>

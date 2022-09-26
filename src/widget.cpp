@@ -497,3 +497,105 @@ void widget::on_btnOK_clicked()
     else
         ui->tabWidget->setCurrentIndex(2);
 }
+
+void widget::on_radioButton_clicked(bool checked)
+{
+    if (checked)
+    {
+        ui->label->clear();
+        ui->label->setText("直流最低电压U1：");
+        ui->label_2->clear();
+        ui->label_2->setText("直流最高电压U2：");
+        ui->label_6->clear();
+        ui->label_6->setText("直流功率P：");
+        ui->label_8->clear();
+        ui->label_8->setText("直流电流Imax：");
+
+        ui->label_9->clear();
+        ui->label_9->setText("直流最低电压U1：");
+        ui->label_11->clear();
+        ui->label_11->setText("直流最高电压U2：");
+        ui->label_13->clear();
+        ui->label_13->setText("直流功率P：");
+        ui->label_15->clear();
+        ui->label_15->setText("直流电流Imax：");
+
+        ui->label_17->clear();
+        ui->label_17->setText("直流最低电压U1：");
+        ui->label_19->clear();
+        ui->label_19->setText("直流最高电压U2：");
+        ui->label_21->clear();
+        ui->label_21->setText("直流功率P：");
+        ui->label_23->clear();
+        ui->label_23->setText("直流电流Imax：");
+
+        ui->label_25->clear();
+        ui->label_25->setText("直流最低电压U1：");
+        ui->label_27->clear();
+        ui->label_27->setText("直流最高电压U2：");
+        ui->label_29->clear();
+        ui->label_29->setText("直流功率P：");
+        ui->label_31->clear();
+        ui->label_31->setText("直流电流Imax：");
+
+        ui->label_33->clear();
+        ui->label_33->setText("直流最低电压U1：");
+        ui->label_35->clear();
+        ui->label_35->setText("直流最高电压U2：");
+        ui->label_37->clear();
+        ui->label_37->setText("直流功率P：");
+        ui->label_39->clear();
+        ui->label_39->setText("直流电流Imax：");
+    }
+}
+
+void widget::on_radioButton_2_clicked(bool checked)
+{
+    if (checked)
+    {
+        ui->label->clear();
+        ui->label->setText("交流最低电压U1：");
+        ui->label_2->clear();
+        ui->label_2->setText("交流最高电压U2：");
+        ui->label_6->clear();
+        ui->label_6->setText("交流功率P：");
+        ui->label_8->clear();
+        ui->label_8->setText("交流电流Imax：");
+
+        ui->label_9->clear();
+        ui->label_9->setText("交流最低电压U1：");
+        ui->label_11->clear();
+        ui->label_11->setText("交流最高电压U2：");
+        ui->label_13->clear();
+        ui->label_13->setText("交流功率P：");
+        ui->label_15->clear();
+        ui->label_15->setText("交流电流Imax：");
+
+        ui->label_17->clear();
+        ui->label_17->setText("交流最低电压U1：");
+        ui->label_19->clear();
+        ui->label_19->setText("交流最高电压U2：");
+        ui->label_21->clear();
+        ui->label_21->setText("交流功率P：");
+        ui->label_23->clear();
+        ui->label_23->setText("交流电流Imax：");
+
+        ui->label_25->clear();
+        ui->label_25->setText("交流最低电压U1：");
+        ui->label_27->clear();
+        ui->label_27->setText("交流最高电压U2：");
+        ui->label_29->clear();
+        ui->label_29->setText("交流功率P：");
+        ui->label_31->clear();
+        ui->label_31->setText("交流电流Imax：");
+
+        ui->label_33->clear();
+        ui->label_33->setText("交流最低电压U1：");
+        ui->label_35->clear();
+        ui->label_35->setText("交流最高电压U2：");
+        ui->label_37->clear();
+        ui->label_37->setText("交流功率P：");
+        ui->label_39->clear();
+        ui->label_39->setText("交流电流Imax：");
+    }
+}
