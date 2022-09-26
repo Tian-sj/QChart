@@ -8,18 +8,18 @@ win32-msvc*:QMAKE_CXXFLAGS += /utf-8
 
 HEADERS += \
     src/dialog.h \
-    src/widget.h
+    src/Tian.h
 
 SOURCES += \
     src/dialog.cpp \
-    src/widget.cpp \
+    src/Tian.cpp \
     src/main.cpp
 
 FORMS += \
     src/dialog.ui \
-    src/widget.ui
+    src/Tian.ui
 
 # Default rules for deployment.
-    qnx: target.path = /tmp/$${TARGET}/bin
-    else: unix:!android: target.path = /opt/$${TARGET}/bin
-    !isEmpty(target.path): INSTALLS += target
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>widget</class>
- <widget class="QMainWindow" name="widget">
+ <class>Tian</class>
+ <widget class="QMainWindow" name="Tian">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1400</width>
-    <height>900</height>
+    <width>1076</width>
+    <height>605</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>widget</string>
+   <string>Tian</string>
   </property>
   <property name="styleSheet">
    <string notr="true">* {
@@ -1430,62 +1430,11 @@ QDoubleSpinBox::up-button,QDoubleSpinBox::down-button
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>直流电图</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
-         <widget class="QChartView" name="chartView"/>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_3">
-       <attribute name="title">
-        <string>交流电图</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_9">
-        <item row="0" column="0">
-         <widget class="QChartView" name="chartView_2"/>
-        </item>
-       </layout>
-      </widget>
      </widget>
     </item>
    </layout>
   </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QChartView</class>
-   <extends>QGraphicsView</extends>
-   <header>qchartview.h</header>
-  </customwidget>
- </customwidgets>
- <tabstops>
-  <tabstop>text_1_u1</tabstop>
-  <tabstop>text_1_u2</tabstop>
-  <tabstop>text_1_p</tabstop>
-  <tabstop>text_1_Imax</tabstop>
-  <tabstop>text_2_u1</tabstop>
-  <tabstop>text_2_u2</tabstop>
-  <tabstop>text_2_p</tabstop>
-  <tabstop>text_2_Imax</tabstop>
-  <tabstop>text_3_u1</tabstop>
-  <tabstop>text_3_u2</tabstop>
-  <tabstop>text_3_p</tabstop>
-  <tabstop>text_3_Imax</tabstop>
-  <tabstop>text_4_u1</tabstop>
-  <tabstop>text_4_u2</tabstop>
-  <tabstop>text_4_p</tabstop>
-  <tabstop>text_4_Imax</tabstop>
-  <tabstop>text_5_u1</tabstop>
-  <tabstop>text_5_u2</tabstop>
-  <tabstop>text_5_p</tabstop>
-  <tabstop>text_5_Imax</tabstop>
-  <tabstop>tabWidget</tabstop>
-  <tabstop>chartView</tabstop>
- </tabstops>
  <resources/>
  <connections/>
 </ui>
