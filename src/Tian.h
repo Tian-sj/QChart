@@ -19,12 +19,15 @@ private:
     QWidget *m_mainWidget = nullptr;
     QChartView *m_chartView = nullptr;
     QChart *m_chart = nullptr;
+    QValueAxis *axisX = nullptr;
+    QValueAxis *axisY = nullptr;
 
     Dialog *dialog = nullptr;
 
 private:
     std::vector<QGroupBox *> group_box;
     QList<QLineSeries *> m_series;
+    QList<QScatterSeries *> m_point;
     std::vector<QString> m_series_name;
     std::vector<std::vector<qreal>> value;
 
@@ -34,6 +37,7 @@ private:
 private:
     void iniChart();
     void addSeries();
+    void addScaSeries();
     void addAxis();
 
 public:
@@ -48,6 +52,8 @@ private slots:
     void on_radioButton_clicked(bool checked);
 
     void on_radioButton_2_clicked(bool checked);
+
+    void on_btnReset_clicked();
 
 private:
     Ui_Tian *ui;

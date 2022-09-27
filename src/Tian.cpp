@@ -22,27 +22,25 @@ Tian::Tian(QWidget *parent)
 
 Tian::~Tian()
 {
+    if (m_chart != nullptr)
+    {
+        delete m_chart;
+        m_chart = nullptr;
+        delete m_chartView;
+        m_chartView = nullptr;
+        delete m_mainLayout;
+        m_mainLayout = nullptr;
+        delete m_mainWidget;
+        m_mainWidget = nullptr;
+    }
     delete ui;
 }
 
 void Tian::iniChart()
 {
     m_chart = new QChart();
-    m_chartView = new QChartView(m_chart, this);
-
-    m_mainLayout = new QGridLayout();
-    m_mainLayout->addWidget(m_chartView, 0, 1, 3, 1);
-    m_mainWidget = new QWidget();
-    m_mainWidget->setLayout(m_mainLayout);
-    QString label;
-    [&]()
-    {
-        if (ui->radioButton->isChecked())
-            label = ui->radioButton->text();
-        else
-            label = ui->radioButton_2->text();
-    };
-    ui->tabWidget->addTab(m_mainWidget, label);
+    m_chartView = new QChartView(m_chart);
+    m_chartView->setRenderHint(QPainter::Antialiasing);
 }
 
 void Tian::addSeries()
@@ -90,6 +88,36 @@ void Tian::addSeries()
     }
 }
 
+void Tian::addScaSeries()
+{
+    for (int i = 0; i < ui->text->value(); ++i)
+    {
+        QScatterSeries *series = new QScatterSeries();
+        series->setPointLabelsFormat("(@xPoint, @yPoint)");
+        series->setMarkerSize(6);
+        series->setPointLabelsVisible();
+        series->setPointLabelsClipping(false);
+        m_point.append(series);
+
+        QList<QPointF> data;
+
+        qreal ua = round(value[i][2] * 1000 / value[i][3] * 10) / 10;
+
+        if (ui->radioButton->isChecked())
+        {
+            data.append(QPointF(value[i][0], -value[i][3]));
+            data.append(QPointF(value[i][1], -round(value[i][2] * 1000 / value[i][1] * 10) / 10));
+            data.append(QPointF(ua, -value[i][3]));
+        }
+        data.append(QPointF(value[i][0], value[i][3]));
+        data.append(QPointF(ua, value[i][3]));
+        data.append(QPointF(value[i][1], round(value[i][2] * 1000 / value[i][1] * 10) / 10));
+
+        series->append(data);
+        m_chart->addSeries(series);
+    }
+}
+
 void Tian::addAxis()
 {
     int start = 0;
@@ -103,18 +131,60 @@ void Tian::addAxis()
         start = dialog->getAxisStart_stop()[0];
         maxX = dialog->getAxisStart_stop()[1];
         maxY = dialog->getAxisStart_stop()[2];
+
+        ui->btnOK->setEnabled(false);
+        for (auto it = group_box.begin(); it != group_box.begin() + ui->text->value(); ++it)
+            (*it)->setEnabled(false);
+
+        addScaSeries();
+
+        for (int i = ui->text->value(); i < 2 * ui->text->value(); ++i)
+        {
+            m_chart->legend()->markers().at(i)->setVisible(false);
+        }
+
+        m_mainLayout = new QGridLayout();
+        m_mainLayout->addWidget(m_chartView, 0, 1, 3, 1);
+        m_mainWidget = new QWidget();
+        m_mainWidget->setLayout(m_mainLayout);
+        QString label;
+        if (ui->radioButton->isChecked())
+            label = ui->radioButton->text();
+        else
+            label = ui->radioButton_2->text();
+        ui->tabWidget->addTab(m_mainWidget, label);
+        ui->tabWidget->setCurrentIndex(1);
+
+        ui->radioButton->setEnabled(false);
+        ui->radioButton_2->setEnabled(false);
     }
     else
     {
         delete dialog;
         dialog = nullptr;
+
+        while (m_series.count() > 0)
+        {
+            QLineSeries *series = m_series.last();
+            m_chart->removeSeries(series);
+            m_series.removeLast();
+            delete series;
+        }
+
+        delete m_chart;
+        m_chart = nullptr;
+
+        delete m_chartView;
+        m_chartView = nullptr;
+
+        value.clear();
         return;
     }
     delete dialog;
     dialog = nullptr;
 
-    QValueAxis *axisX = new QValueAxis();
-    QValueAxis *axisY = new QValueAxis();
+    axisX = new QValueAxis();
+    axisY = new QValueAxis();
     m_chart->addAxis(axisX, Qt::AlignBottom);
     m_chart->addAxis(axisY, Qt::AlignLeft);
 
@@ -151,6 +221,8 @@ void Tian::addAxis()
     {
         m_series.at(i)->attachAxis(axisX);
         m_series.at(i)->attachAxis(axisY);
+        m_point.at(i)->attachAxis(axisX);
+        m_point.at(i)->attachAxis(axisY);
     }
 }
 
@@ -164,15 +236,10 @@ void Tian::on_pushButton_clicked()
 
     for (auto it = group_box.begin(); it != group_box.begin() + ui->text->value(); ++it)
         (*it)->setVisible(true);
-
-    ui->radioButton->setEnabled(false);
-    ui->radioButton_2->setEnabled(false);
 }
 
 void Tian::on_btnOK_clicked()
 {
-    ui->btnOK->setEnabled(false);
-
     std::vector<qreal> v;
     v.push_back(ui->text_1_u1->value());
     v.push_back(ui->text_1_u2->value());
@@ -309,4 +376,58 @@ void Tian::on_radioButton_2_clicked(bool checked)
         ui->label_39->clear();
         ui->label_39->setText("交流电流Imax：");
     }
+}
+
+void Tian::on_btnReset_clicked()
+{
+    ui->tabWidget->removeTab(1);
+    for (auto it = group_box.begin(); it != group_box.begin() + ui->text->value(); ++it)
+    {
+        (*it)->setEnabled(true);
+        (*it)->setVisible(false);
+    }
+    ui->text->setVisible(true);
+    ui->pushButton->setVisible(true);
+    ui->btnOK->setVisible(false);
+    ui->radioButton->setEnabled(true);
+    ui->radioButton_2->setEnabled(true);
+
+    if (m_chart != nullptr)
+    {
+        while (m_series.count() > 0)
+        {
+            QLineSeries *series = m_series.last();
+            m_chart->removeSeries(series);
+            m_series.removeLast();
+            delete series;
+        }
+        while (m_point.count() > 0)
+        {
+            QScatterSeries *series = m_point.last();
+            m_chart->removeSeries(series);
+            m_point.removeLast();
+            delete series;
+        }
+
+        m_chart->removeAxis(axisX);
+        m_chart->removeAxis(axisY);
+        delete axisX;
+        axisX = nullptr;
+        delete axisY;
+        axisY = nullptr;
+
+        delete m_chart;
+        m_chart = nullptr;
+
+        delete m_chartView;
+        m_chartView = nullptr;
+
+        delete m_mainLayout;
+        m_mainLayout = nullptr;
+
+        delete m_mainWidget;
+        m_mainWidget = nullptr;
+    }
+
+    value.clear();
 }
