@@ -2,7 +2,6 @@
 #include <QMainWindow>
 #include <vector>
 #include <QtCharts>
-QT_CHARTS_USE_NAMESPACE
 
 #include "ui_widget.h"
 #include "dialog.h"
