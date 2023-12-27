@@ -1,11 +1,12 @@
-#include "widget.h"
-
+#include <app/widget.h>
 #include <QMessageBox>
 #include <algorithm>
 #include <cmath>
 
+#include "ui_widget.h"
+
 widget::widget(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui_widget)
+    : QMainWindow(parent), ui(new Ui::widget)
 {
     ui->setupUi(this);
 

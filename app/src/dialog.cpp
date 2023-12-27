@@ -1,4 +1,4 @@
-#include "dialog.h"
+#include <app/dialog.h>
 #include "ui_dialog.h"
 #include "QMessageBox"
 

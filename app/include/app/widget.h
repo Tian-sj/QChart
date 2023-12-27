@@ -1,10 +1,12 @@
 #pragma once
 #include <QMainWindow>
-#include <vector>
 #include <QtCharts>
+#include <vector>
+#include <app/dialog.h>
 
-#include "ui_widget.h"
-#include "dialog.h"
+namespace Ui {
+class widget;
+}
 
 class widget : public QMainWindow
 {
@@ -52,7 +54,7 @@ private slots:
     void on_radioButton_2_clicked(bool checked);
 
 private:
-    Ui_widget *ui;
+    Ui::widget *ui;
 
     void createCharts();
     void iniSeries();
